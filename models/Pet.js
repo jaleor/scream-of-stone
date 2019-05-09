@@ -9,15 +9,15 @@ var Types = keystone.Field.Types;
 var Pet = new keystone.List('Pet');
 
 Pet.add({
-	name: { type: String, required: true, index: true },
-	owner: { type: Types.Relationship, ref: 'Owner', createInline: true},
-	specie:{ type: Types.Select, options: 'canino, felino'},
-	breed: { type: Types.Select, options: 'mestizo, caniche'},
-	gender: { type: Types.Select, options: 'hembra, macho', default: 'hembra' },
-	castrated: { type: Types.Boolean },
-	pelage: { type: String },	
-	birthDate: { type: Types.Date },
-	notes: { type: Types.Textarea },
+	name: { label: 'Nombre', type: String, required: true, index: true },
+	owner: { label: 'Dueño', type: Types.Relationship, ref: 'Owner', createInline: true},
+	specie:{ label: 'Especie', type: Types.Select, options: 'canino, felino'},
+	breed: { label: 'Raza', type: Types.Select, options: 'mestizo, caniche'},
+	gender: { label: 'Género', type: Types.Select, options: 'hembra, macho', default: 'hembra' },
+	castrated: { label: 'Castrado/a', type: Types.Boolean },
+	pelage: { label: 'Pelaje', type: String },	
+	birthDate: { label: 'Fecha de nacimiento', type: Types.Date },
+	notes: { label: 'Observaciones', type: Types.Textarea },
 	/*histories: { type: Types.Relationship, ref: 'History', many: true, createInline: true }
   	content: {
     	brief: { type: Types.Html, wysiwyg: true, height: 150 },
@@ -26,6 +26,8 @@ Pet.add({
 });
 
 Pet.relationship({ path: 'histories', ref: 'History', refPath: 'pet'});
+
+Pet.relationship({ path: 'vaccines', ref: 'Vaccine', refPath: 'pet'});
 
 /**
  * Registration

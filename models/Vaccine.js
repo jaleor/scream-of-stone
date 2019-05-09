@@ -2,14 +2,14 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * History Model
+ * Vaccine Model
  * ==========
  */
-var History = new keystone.List('History', {
-	map: {name: 'createdDt'}, label: 'Historia clínica', singular: 'Historia', plural: 'Historias'
+var Vaccine = new keystone.List('Vaccine', {
+	map: {name: 'createdDt'}, label: 'Plan sanitario', singular: 'Tratamiento', plural: 'Tratamientos'
 });
 
-History.add({
+Vaccine.add({
 	createdDt: { type: Types.Datetime, default: Date.now },
 	notes: { type: Types.Textarea },
 	pet: { type: Types.Relationship, ref: 'Pet'}
@@ -19,5 +19,5 @@ History.add({
 /**
  * Registration
  */
-History.defaultColumns = 'createdDt, notes';
-History.register();
+Vaccine.defaultColumns = 'createdDt, notes';
+Vaccine.register();
