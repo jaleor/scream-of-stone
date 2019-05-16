@@ -5,7 +5,9 @@ var Types = keystone.Field.Types;
  * Owner Model
  * ==========
  */
-var Owner = new keystone.List('Owner');
+var Owner = new keystone.List('Owner', {
+	label: 'Propietarios', singular: 'Propietario', plural: 'Propietarios'
+});
 
 Owner.add({
 	name: { type: Types.Name, required: true, index: true },

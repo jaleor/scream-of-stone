@@ -2,6 +2,12 @@
 // customising the .env file in your project's root folder.
 require('dotenv').config();
 
+
+var moment = require('moment');
+require('moment/locale/es');
+console.log(moment.locales());
+moment.locale('es');
+
 // Require keystone
 var keystone = require('keystone');
 
@@ -46,11 +52,13 @@ keystone.set('routes', require('./routes'));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	pets: 'pets',
-	owners: 'owners',
-	histories: 'histories',
-	vaccines: 'vaccines'
+	Pacientes: ['pets'],
+	Propietarios: ['owners'],
+	Historias: ['histories'],
+	"Plan sanitario": ['vaccines']
 });
+
+keystone.set('adminui custom styles', 'public/styles/admin.less');
 
 // Start Keystone to connect to your database and initialise the web server
 
