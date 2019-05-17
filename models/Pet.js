@@ -16,7 +16,7 @@ Pet.add({
 	gender: { label: 'Género', type: Types.Select, options: 'hembra, macho', default: 'hembra' },
 	castrated: { label: 'Castrado/a', type: Types.Boolean },
 	pelage: { label: 'Pelaje', type: String },	
-	birthDate: { label: 'Fecha de nacimiento', type: Types.Date },
+	birthDate: { label: 'Fecha de nacimiento', type: Types.Date, format: 'DD/MM/YYYY', inputFormat: 'DD/MM/YYYY' },
 	notes: { label: 'Observaciones', type: Types.Textarea },
 	/*histories: { type: Types.Relationship, ref: 'History', many: true, createInline: true }
   	content: {
