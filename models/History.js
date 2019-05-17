@@ -11,7 +11,8 @@ var History = new keystone.List('History', {
 	label: 'Historia clínica', 
 	singular: 'Historia', 
 	plural: 'Historias',
-	defaultSort: '-createdDt'
+	defaultSort: '-createdDt',
+	drilldown: 'pet'
 });
 
 function defaultDate () {
@@ -19,11 +20,14 @@ function defaultDate () {
 }
 
 History.add({
-	createdDt: { type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
-	notes: { type: Types.Textarea },
-	pet: { type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
+	createdDt: { label: 'Fecha / hora', type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
+	notes: { label: 'Observaciones', type: Types.Textarea },
+	pet: { label: 'Paciente', type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
 });
 
+/*History.schema.virtual('tokens', function() {
+    return 'xxx';
+});*/
 
 /**
  * Registration

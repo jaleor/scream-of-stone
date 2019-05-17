@@ -10,9 +10,11 @@ var Owner = new keystone.List('Owner', {
 });
 
 Owner.add({
-	name: { type: Types.Name, required: true, index: true },
-	telephone: { type: String },
-	address: { type: Types.Location, defaults: { country: 'Argentina' } }
+	name: { label: 'Nombre / Apellido', type: Types.Name, required: true, index: true },
+	telephone: { label: 'Teléfono', type: String },
+	/*address: { label: 'Dirección', type: Types.Location, defaults: { country: 'Argentina' } }*/
+	address: { label: 'Dirección', type: String },
+	email: { label: 'Email', type: Types.Email }
 });
 
 

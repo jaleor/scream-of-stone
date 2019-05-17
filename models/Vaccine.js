@@ -11,17 +11,27 @@ var Vaccine = new keystone.List('Vaccine', {
 	label: 'Plan sanitario', 
 	singular: 'Tratamiento', 
 	plural: 'Tratamientos',
-	defaultSort: '-createdDt'
+	defaultSort: '-createdDt',
+	drilldown: 'pet'
 });
 
 function defaultDate () {
     return moment();
 }
 
+/*Vaccine.schema.methods.dateFormat = function() {
+	return 'published';
+  }
+
+function createdDtx () {
+	return 'xx';
+}*/
+
 Vaccine.add({
-	createdDt: { type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
-	notes: { type: Types.Textarea },
-	pet: { type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
+	createdDt: { label: 'Fecha / hora', type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
+	notes: { label: 'Observaciones', type: Types.Textarea },
+	//createdDtx: { label: '', type: String, default: this.dateFormat()},
+	pet: { label: 'Paciente', type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
 });
 
 
