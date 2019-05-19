@@ -6,11 +6,12 @@ var Types = keystone.Field.Types;
  * ==========
  */
 var Owner = new keystone.List('Owner', {
+	map: {name:'name'},
 	label: 'Propietarios', singular: 'Propietario', plural: 'Propietarios'
 });
 
 Owner.add({
-	name: { label: 'Nombre / Apellido', type: Types.Name, required: true, index: true },
+	name: { label: 'Nombre / Apellido', type: Types.Name, required: true, index: true, initial: true },
 	telephone: { label: 'Teléfono', type: String },
 	/*address: { label: 'Dirección', type: Types.Location, defaults: { country: 'Argentina' } }*/
 	address: { label: 'Dirección', type: String },
