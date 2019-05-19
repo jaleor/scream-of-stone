@@ -7,7 +7,7 @@ var moment = require('moment');
  * ==========
  */
 var History = new keystone.List('History', {
-	map: {name: 'createdDt'}, 
+	map: {name: 'createdDtEs'}, 
 	label: 'Historia clínica', 
 	singular: 'Historia', 
 	plural: 'Historias',
@@ -21,16 +21,16 @@ function defaultDate () {
 
 History.add({
 	createdDt: { label: 'Fecha / hora', type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
+	createdDtEs: { label: 'Fecha / hora', type: Types.Text, watch: true, noedit: true, initial: false, hidden: true, value: function (callback) {
+		callback(null, moment(this.createdDt).format('DD/MM/YYYY HH:mm'));
+    }},
 	notes: { label: 'Observaciones', type: Types.Textarea },
 	pet: { label: 'Paciente', type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
 });
 
-/*History.schema.virtual('tokens', function() {
-    return 'xxx';
-});*/
 
 /**
  * Registration
  */
-History.defaultColumns = 'createdDt|20%, pet|10%, notes|70%';
+History.defaultColumns = 'createdDtEs|20%, pet|20%, notes|60%';
 History.register();

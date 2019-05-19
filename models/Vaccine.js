@@ -7,7 +7,7 @@ var moment = require('moment');
  * ==========
  */
 var Vaccine = new keystone.List('Vaccine', {
-	map: {name: 'createdDt'}, 
+	map: {name: 'createdDtEs'}, 
 	label: 'Plan sanitario', 
 	singular: 'Tratamiento', 
 	plural: 'Tratamientos',
@@ -22,15 +22,14 @@ function defaultDate () {
 /*Vaccine.schema.methods.dateFormat = function() {
 	return 'published';
   }
-
-function createdDtx () {
-	return 'xx';
-}*/
+*/
 
 Vaccine.add({
 	createdDt: { label: 'Fecha / hora', type: Types.Date, default: defaultDate(), initial: true, format: 'DD/MM/YYYY HH:mm', inputFormat: 'DD/MM/YYYY HH:mm' },
+	createdDtEs: { label: 'Fecha / hora', type: Types.Text, watch: true, noedit: true, initial: false, hidden: true, value: function (callback) {
+		callback(null, moment(this.createdDt).format('DD/MM/YYYY HH:mm'));
+  }},
 	notes: { label: 'Observaciones', type: Types.Textarea },
-	//createdDtx: { label: '', type: String, default: this.dateFormat()},
 	pet: { label: 'Paciente', type: Types.Relationship, ref: 'Pet', createInline: true, required: true, initial: true}
 });
 
@@ -38,5 +37,5 @@ Vaccine.add({
 /**
  * Registration
  */
-Vaccine.defaultColumns = 'createdDt|20%, pet|10%, notes|70%';
+Vaccine.defaultColumns = 'createdDtEs|20%, pet|20%, notes|60%';
 Vaccine.register();
