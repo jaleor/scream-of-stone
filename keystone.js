@@ -2,11 +2,10 @@
 // customising the .env file in your project's root folder.
 require('dotenv').config();
 
-
-var moment = require('moment');
+/*var moment = require('moment');
 require('moment/locale/es');
 console.log(moment.locales());
-moment.locale('es');
+moment.locale('es');*/
 
 // Require keystone
 var keystone = require('keystone');
@@ -16,8 +15,8 @@ var keystone = require('keystone');
 // and documentation.
 
 keystone.init({
-	'name': 'Vete',
-	'brand': 'Vete',
+	'name': 'Veterinaria',
+	'brand': 'Veterinaria',
 
 	'less': 'public',
 	'static': 'public',
@@ -52,10 +51,9 @@ keystone.set('routes', require('./routes'));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	Pacientes: ['pets'],
+	Pacientes: ['pets', 'histories', 'vaccines'],
 	Propietarios: ['owners'],
-	Historias: ['histories'],
-	"Plan sanitario": ['vaccines']
+	Otros: ['species', 'breeds', 'users']
 });
 
 keystone.set('adminui custom styles', 'public/styles/admin.less');

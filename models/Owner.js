@@ -15,7 +15,8 @@ Owner.add({
 	telephone: { label: 'Teléfono', type: String },
 	/*address: { label: 'Dirección', type: Types.Location, defaults: { country: 'Argentina' } }*/
 	address: { label: 'Dirección', type: String },
-	email: { label: 'Email', type: Types.Email }
+	email: { label: 'Email', type: Types.Email },
+	notes: { label: 'Observaciones', type: Types.Textarea }
 });
 
 
