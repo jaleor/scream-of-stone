@@ -1,6 +1,5 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
-//var Owner = require('Owner');
 
 /**
  * Pet Model
@@ -27,10 +26,11 @@ Pet.add({
     }},
 	name: { label: 'Nombre', type: String, required: true, index: true, initial: true },
 	owner: { label: 'Dueño', type: Types.Relationship, ref: 'Owner', createInline: true, required: true, initial: true },
-	specie:{ label: 'Especie', type: Types.Relationship, ref: 'Specie', createInline: true, required: true, initial: true },
-	breed: { label: 'Raza', type: Types.Relationship, ref: 'Breed', filters: { specie: ':specie' }, createInline: true, required: false, initial: false },
+	specie:{ label: 'Especie', type: Types.Relationship, ref: 'Specie', createInline: true, required: true, initial: true, watch: true, value: function (callback) {console.log("xx")} },
+	breed: { label: 'Raza', type: Types.Relationship, ref: 'Breed', dependsOn: { specie: ["5ce3228a998c2c1376243f7f", "5ce31d32f904f810cd82bb87"] }, filters: { specie: ':specie' }, createInline: true, required: false, initial: false },
+	//breed: { label: 'Raza', type: Types.Select, options: getBreeds(this.specie) },
 	gender: { label: 'Género', type: Types.Select, options: 'hembra, macho', default: 'hembra' },
-	/*}, 'Castrado/a', {*/isCastrated: { label: 'Castrado/a', type: Types.Boolean },
+	isCastrated: { label: 'Castrado/a', type: Types.Boolean },
 	castratedDate: { label: 'Fecha de castración', dependsOn: { isCastrated: true }, type: Types.Date, format: 'DD/MM/YYYY', inputFormat: 'DD/MM/YYYY' },
 	pelage: { label: 'Pelaje', type: String },	
 	birthDate: { label: 'Fecha de nacimiento', type: Types.Date, format: 'DD/MM/YYYY', inputFormat: 'DD/MM/YYYY' },
@@ -41,6 +41,35 @@ Pet.add({
 Pet.relationship({ path: 'histories', ref: 'History', refPath: 'pet'});
 
 Pet.relationship({ path: 'vaccines', ref: 'Vaccine', refPath: 'pet'});
+
+
+	/*
+function checkSpecie() {
+	console.log("check specie", this.isCastrated);
+	this.isCastrated = false;
+	return false;
+	
+}
+
+Pet.schema.post('init', function() {
+	console.log("okkkkkk", this.specie);
+    //this.contentFull = this.content.full;
+});
+
+Pet.schema.virtual('speciex', function () {
+	return this.specie;
+	if (this.specie) return true;
+  });
+
+function getBreeds(specie) {
+	
+	let breedsOp = [];
+	keystone.list('Breed').model.find({'specie': '5ce31d32f904f810cd82bb87'}, function (err, breeds) {
+		 breedsOp = breeds;
+	});
+	return breedsOp;
+}*/
+
 
 /**
  * Registration
