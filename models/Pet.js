@@ -26,9 +26,10 @@ Pet.add({
     }},
 	name: { label: 'Nombre', type: String, required: true, index: true, initial: true },
 	owner: { label: 'Dueño', type: Types.Relationship, ref: 'Owner', createInline: true, required: true, initial: true },
-	specie:{ label: 'Especie', type: Types.Relationship, ref: 'Specie', createInline: true, required: true, initial: true, watch: true, value: function (callback) {console.log("xx")} },
-	breed: { label: 'Raza', type: Types.Relationship, ref: 'Breed', dependsOn: { specie: ["5ce3228a998c2c1376243f7f", "5ce31d32f904f810cd82bb87"] }, filters: { specie: ':specie' }, createInline: true, required: false, initial: false },
+	//specie:{ label: 'Especie', type: Types.Relationship, ref: 'Specie', createInline: true, required: true, initial: true, watch: true, value: function (callback) {console.log("xx")} },
+	//breed: { label: 'Raza', type: Types.Relationship, ref: 'Breed', dependsOn: { specie: ["5ce3228a998c2c1376243f7f", "5ce31d32f904f810cd82bb87"] }, filters: { specie: ':specie' }, createInline: true, required: false, initial: false },
 	//breed: { label: 'Raza', type: Types.Select, options: getBreeds(this.specie) },
+	breed: { label: 'Raza (Especie)', type: Types.Relationship, ref: 'Breed', createInline: true, required: true, initial: true },
 	gender: { label: 'Género', type: Types.Select, options: 'hembra, macho', default: 'hembra' },
 	isCastrated: { label: 'Castrado/a', type: Types.Boolean },
 	castratedDate: { label: 'Fecha de castración', dependsOn: { isCastrated: true }, type: Types.Date, format: 'DD/MM/YYYY', inputFormat: 'DD/MM/YYYY' },
@@ -42,6 +43,22 @@ Pet.relationship({ path: 'histories', ref: 'History', refPath: 'pet'});
 
 Pet.relationship({ path: 'vaccines', ref: 'Vaccine', refPath: 'pet'});
 
+/* PARA SETEAR LA ESPECIE DESDE LA RAZA
+Pet.schema.pre('save', function(next) {
+	console.log(this);
+	let breed = keystone.list('Breed').model.findOne({_id: this.breed.toString()}).exec(function (err, u) {
+		if (err) {
+			callback(err, "unknown")
+		} else {			
+			callback(null, u)
+		}
+	});
+	console.log("breed", breed);
+	//this.specie = this.breed.specie;
+	next();
+    //this.contentFull = this.content.full;
+});
+*/
 
 	/*
 function checkSpecie() {
