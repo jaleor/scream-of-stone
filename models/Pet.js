@@ -91,5 +91,5 @@ function getBreeds(specie) {
 /**
  * Registration
  */
-Pet.defaultColumns = 'newKey, owner, specie';
+Pet.defaultColumns = 'newKey, breed, owner';
 Pet.register();
